@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block bodytag %}
+    <body {% if onloadmessage %} onload="alert('{{onloadmessage}}');" {% endif %}>
+{% endblock %}
+
+
+
+
+{% block content %}
+
+    <div class="container page-form">
+        <div class="container">
+            <h2>Log in</h2>
+        </div>
+        <form id="login-form" action="/login" method="post">
+            {% if loginform.errors %}
+                    <ul class=errors">
+                        {% for field_name, field_errors in loginform.errors|dictsort if field_errors %}
+                            {% for error in field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {{ loginform.csrf_token}}
+            <div class="form-group">
+                {{ loginform.loginemail(class="form-control", placeholder="Email Address")}}
+            </div>
+            <div class="form-group">
+                {{ loginform.loginpassword(class="form-control", placeholder="Password")}}
+            </div>
+
+            {{ loginform.submit(value="Sign in", class="btn btn-success")}}
+        </form>
+        <div>
+            <p>If you're a new user, <a href="/register">register here</a></p>
+        </div>
+
+    </div>
+
+{% endblock %}

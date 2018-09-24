@@ -5,6 +5,7 @@ from passwordhelper import PasswordHelper
 from forms import RegistrationForm
 from forms import LoginForm
 from dbhelper import DBHelper as DBHelper
+from grammar import Grammar
 
 DB = DBHelper()
 PH = PasswordHelper()
@@ -72,6 +73,14 @@ def load_user(user_id):
     user_password = DB.get_user(user_id)
     if user_password:
         return User(user_id)
+
+
+#The error I'm getting says that text is none
+@app.route("/summary")
+def summary():
+    text = request.form.get("text")
+    summary = Grammar.Summary(text)
+    return summary
 
 
 if __name__ == '__main__':

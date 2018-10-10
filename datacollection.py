@@ -6,12 +6,14 @@ from forms import RegistrationForm
 from forms import LoginForm
 from dbhelper import DBHelper as DBHelper
 from grammar import Grammar
+from wtf_tinymce import wtf_tinymce
 
 DB = DBHelper()
 PH = PasswordHelper()
 
 app = Flask(__name__)
 login_manager = LoginManager(app)
+wtf_tinymce.init_app(app)
 app.secret_key = 'flkjsdfF7348503N=[F-0O3I4URasdfa7U8D54ferP4]WEOIEUPWc45u8O48DHOEkiwerRIGOQ'
 
 
@@ -76,9 +78,9 @@ def load_user(user_id):
 
 
 #The error I'm getting says that text is none
-@app.route("/summary")
+@app.route("/summary", methods=["POST"])
 def summary():
-    text = request.form.get("text")
+    text = request.form["text"]
     summary = Grammar.Summary(text)
     return summary
 

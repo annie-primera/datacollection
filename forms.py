@@ -3,6 +3,7 @@ from wtforms import PasswordField
 from wtforms import SubmitField
 from wtforms.fields.html5 import EmailField
 from wtforms import validators
+from wtf_tinymce.forms.fields import TinyMceField
 
 
 class RegistrationForm(FlaskForm):
@@ -15,3 +16,9 @@ class LoginForm(FlaskForm):
     loginemail = EmailField(validators=[validators.DataRequired(), validators.Email()])
     loginpassword = PasswordField('password', validators=[validators.DataRequired(message="Password field is required")])
     submit = SubmitField('submit', [validators.DataRequired()])
+
+class MyForm(FlaskForm):
+    text = TinyMceField(
+        'My WTF TinyMCE Field label',
+        tinymce_options={'toolbar': 'bold italic | link | code'}
+    )

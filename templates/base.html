@@ -24,6 +24,48 @@
             }
         </style>
 
+        <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=6fc0xk1udzzgqotd3k69i1xrd4c5dq3z1duap0e3lvqc0fgb"></script>
+        <script src="https://cdn.tinymce.com/4/tinymce.js"></script>
+        <script src="https://prowriting.azureedge.net/beyondgrammar-tinymce/1.0.22/dist/beyond-grammar-plugin.js"></script>
+        <script>
+        tinymce.init({
+          selector: '#editor',
+          height: 300,
+
+          plugins: ["paste", "BeyondGrammar"],
+          toolbar: [
+            "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | BeyondGrammar"
+          ],
+
+          bgOptions: {
+            service: {
+
+              i18n: {
+                en: "https://prowriting.azureedge.net/beyondgrammar-tinymce/1.0.16/dist/i18n-en.js"
+              },
+
+              apiKey: "84334445-FB7C-454B-A3AA-31B4515D2B04",
+
+            },
+            grammar: {
+              languageIsoCode: "en-GB",
+
+              checkStyle: true,
+
+              checkSpelling: true,
+
+              checkGrammar: true,
+
+              showThesaurusByDoubleClick: true,
+
+              showContextThesaurus: false,
+            }
+          }
+        });
+        </script>
+
+
+
     </head>
     {% block bodytag %}
 
@@ -33,6 +75,7 @@
     {% block content %}
 
     {% endblock %}
+
 
     <!-- Bootstrap core Javascript ============== -->
     <!-- Placed at the end of the document so the pages load faster -->

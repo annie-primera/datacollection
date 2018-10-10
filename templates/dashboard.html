@@ -41,13 +41,20 @@
 <div>
     <p>This doesn't do anything yet, I'm just testing</p>
 
-    <form action="/summary">
-    <div class="form-group">
-      <label for="exampleFormControlTextarea1">Put your text here</label>
-      <textarea class="form-control" id="exampleFormControlTextarea1", name = "text" rows="3"></textarea>
-    </div>
-        <input type="submit", value="Summary", class="btn btn-success">
-  </form>
+    <form action="/summary" method="POST">
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Put your text here</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1", name = "text" rows="3"></textarea>
+      </div>
+          <input type="submit", value="Summary", class="btn btn-success">
+    </form>
+</div>
+<div>
+    <h1>Thing</h1>
+    <form method="post">
+      <textarea id="editor">Hello, World!</textarea>
+    </form>
+
 </div>
 
 {% endblock %}

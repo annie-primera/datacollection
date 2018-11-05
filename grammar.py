@@ -1,16 +1,18 @@
 from __future__ import print_function
+import time
 import ProWritingAidSDK
+from ProWritingAidSDK.rest import ApiException
 from pprint import pprint
 
+
 class Grammar:
-    def __init__(self, text):
+    def __init__(self):
         configuration = ProWritingAidSDK.Configuration()
         configuration.host = 'https://api.prowritingaid.com'
         configuration.api_key['licenseCode'] = 'A17D00BF-3DF2-40DA-AE0F-0B8172F2CB1C'
 
-
     @staticmethod
-    def Summary(text):
+    def summary(text):
         text = text
         settings = {"settings": {
             "shortestAverageSentenceLength": 11,
@@ -34,5 +36,6 @@ class Grammar:
         api_instance = ProWritingAidSDK.SummaryApi()
         requestp = ProWritingAidSDK.SummaryAnalysisRequest(text, settings)  # SummaryAnalysisRequest |
 
-        api_response = api_instance.post(requestp)
-        return pprint(api_response)
+        summary_response = api_instance.post(requestp)
+        return(summary_response.result.text)
+        #return pprint(summary_response.result.text)

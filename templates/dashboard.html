@@ -38,21 +38,12 @@
   </div>
 </nav>
 
+<!-- TEXT EDITOR HERE -->
 <div>
-    <p>This doesn't do anything yet, I'm just testing</p>
-
-    <form action="/summary" method="POST">
-      <div class="form-group">
-        <label for="exampleFormControlTextarea1">Put your text here</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1", name = "text" rows="3"></textarea>
-      </div>
-          <input type="submit", value="Summary", class="btn btn-success">
-    </form>
-</div>
-<div>
-    <h1>Thing</h1>
-    <form method="post">
-      <textarea id="editor">Hello, World!</textarea>
+    <h1>This is the text exitor. yaay</h1>
+    <form class="form-inline my-2 my-lg-0" action="/summary" method="POST">
+      <textarea id="editor" name="text">Hello, World!</textarea>
+      <button type="submit" class="btn btn-success">Summary</button>
     </form>
 
 </div>

@@ -7,6 +7,7 @@ from forms import LoginForm
 from dbhelper import DBHelper as DBHelper
 from grammar import Grammar
 from wtf_tinymce import wtf_tinymce
+import ProWritingAidSDK
 
 DB = DBHelper()
 PH = PasswordHelper()
@@ -16,6 +17,9 @@ login_manager = LoginManager(app)
 wtf_tinymce.init_app(app)
 app.secret_key = 'flkjsdfF7348503N=[F-0O3I4URasdfa7U8D54ferP4]WEOIEUPWc45u8O48DHOEkiwerRIGOQ'
 
+configuration = ProWritingAidSDK.Configuration()
+configuration.host = 'https://api.prowritingaid.com'
+configuration.api_key['licenseCode'] = 'A17D00BF-3DF2-40DA-AE0F-0B8172F2CB1C'
 
 @app.route("/")
 def home():
@@ -81,8 +85,8 @@ def load_user(user_id):
 @app.route("/summary", methods=["POST"])
 def summary():
     text = request.form["text"]
-    summary = Grammar.Summary(text)
-    return summary
+    text_summary = Grammar.summary(text)
+    return render_template("summary.html", text_summary=text_summary)
 
 
 if __name__ == '__main__':

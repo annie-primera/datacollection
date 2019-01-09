@@ -16,3 +16,6 @@ class DBHelper:
 
     def add_user(self, email, salt, hashed):
         self.db.users.insert({"email": email, "salt": salt, "hashed": hashed})
+
+    def insert(self, collection, data):
+        self.db[collection].insert(data)

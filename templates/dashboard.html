@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>{{ blog_title }}</h2>
+    <a href="/posts/new/{{ blog_id }}"><button class="btn btn-primary">New text</button></a>
+    {% if texts|length > 0 %}
+        {% for text in texts %}
+            <h3>{{ text.title }}</h3>
+            <p>{{ text.content }}</p>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <h4>There are no assignments yet! Click on "New text" to begin writing.</h4>
+    {% endif %}
+</div>
+{% endblock %}

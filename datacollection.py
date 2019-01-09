@@ -32,6 +32,12 @@ def account():
     return redirect(url_for("dashboard"))
 
 
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    return render_template("dashboard.html")
+
+
 @app.route("/login", methods=["POST"])
 def login():
     form = LoginForm(request.form)
@@ -70,7 +76,7 @@ def register():
 
 @app.route("/editor")
 @login_required
-def dashboard():
+def editor():
     return render_template("editor.html")
 
 
@@ -93,6 +99,10 @@ def summary():
     else:
         return render_template("testing.html")
 
+
+@app.route("/newtext", methods=["POST"])
+def newtext():
+    pass
 
 @app.route("/testing")
 def testing():

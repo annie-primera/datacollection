@@ -74,17 +74,23 @@ def register():
     return render_template("registration.html", registrationform=registrationform)
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    user_password = DB.get_user(user_id)
+    if user_password:
+        return User(user_id)
+
+
 @app.route("/editor")
 @login_required
 def editor():
     return render_template("editor.html")
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    user_password = DB.get_user(user_id)
-    if user_password:
-        return User(user_id)
+@app.route("/basiceditor")
+@login_required
+def basiceditor():
+    return render_template("basiceditor.html")
 
 
 @app.route("/summary", methods=["POST", "GET"])
@@ -100,9 +106,22 @@ def summary():
         return render_template("testing.html")
 
 
-@app.route("/newtext", methods=["POST"])
+@app.route("/newtext", methods=["GET", "POST"])
+@login_required
 def newtext():
-    pass
+    if request.method == "POST":
+        title = request.form['title']
+        content = request.form['content']
+        user = User.get_id(session['email'])
+
+        new_post = Post(title, content, user.email)
+        new_post.save_to_mongo()
+
+        return render_template("editor.html")
+    else:
+        return render_template("basiceditor.html")
+
+
 
 @app.route("/testing")
 def testing():

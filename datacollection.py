@@ -68,10 +68,10 @@ def register():
     return render_template("registration.html", registrationform=registrationform)
 
 
-@app.route("/dashboard")
+@app.route("/editor")
 @login_required
 def dashboard():
-    return render_template("dashboard.html")
+    return render_template("editor.html")
 
 
 @login_manager.user_loader
@@ -81,12 +81,22 @@ def load_user(user_id):
         return User(user_id)
 
 
-#The error I'm getting says that text is none
-@app.route("/summary", methods=["POST"])
+@app.route("/summary", methods=["POST", "GET"])
 def summary():
-    text = request.form["text"]
-    text_summary = Grammar.summary(text)
-    return render_template("summary.html", text_summary=text_summary)
+    if request.method == "POST":
+        if request.form['action'] == 'summary':
+            text = request.form["text"]
+            text_summary = Grammar.summary(text)
+            return render_template("summary.html", text_summary=text_summary)
+        elif request.form['action'] == 'save':
+            return render_template("testing.html")
+    else:
+        return render_template("testing.html")
+
+
+@app.route("/testing")
+def testing():
+    return render_template("testing.html")
 
 
 if __name__ == '__main__':

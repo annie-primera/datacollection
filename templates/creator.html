@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+
+<!-- TEXT EDITOR HERE -->
+<div>
+    <h1>This is the text exitor. yaay</h1>
+    <form class="form-inline my-2 my-lg-0" action="/save" method="POST">
+      <textarea id="editor" name="text">Hello, World!</textarea>
+      <button type="submit" class="btn btn-success">Summary</button>
+    </form>
+
+</div>
+
+{% endblock %}

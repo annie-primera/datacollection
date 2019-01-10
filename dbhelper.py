@@ -1,4 +1,3 @@
-import pymongo
 from pymongo import MongoClient
 
 DATABASE = "datacollection"
@@ -18,4 +17,4 @@ class DBHelper:
         self.db.users.insert({"email": email, "salt": salt, "hashed": hashed})
 
     def insert(self, collection, data):
-        self.db[collection].insert(data)
+        return self.db[collection].insert(data)

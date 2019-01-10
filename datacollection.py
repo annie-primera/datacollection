@@ -1,6 +1,7 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, session
 from flask_login import LoginManager, login_required, login_user, logout_user
 from user import User
+from texts import Texts
 from passwordhelper import PasswordHelper
 from forms import RegistrationForm
 from forms import LoginForm
@@ -20,6 +21,7 @@ app.secret_key = 'flkjsdfF7348503N=[F-0O3I4URasdfa7U8D54ferP4]WEOIEUPWc45u8O48DH
 configuration = ProWritingAidSDK.Configuration()
 configuration.host = 'https://api.prowritingaid.com'
 configuration.api_key['licenseCode'] = 'A17D00BF-3DF2-40DA-AE0F-0B8172F2CB1C'
+
 
 @app.route("/")
 def home():
@@ -47,7 +49,7 @@ def login():
             user = User(form.loginemail.data)
             login_user(user, remember=True)
             return redirect(url_for('account'))
-        form.loginemail.errors.append("Email or password invaild")
+        form.loginemail.errors.append("Email or password invalid")
     return render_template("home.html", loginform=form)
 
 
@@ -111,16 +113,15 @@ def summary():
 def newtext():
     if request.method == "POST":
         title = request.form['title']
-        content = request.form['content']
-        user = User.get_id(session['email'])
+        text = request.form['content']
+        user = session.get('username')
 
-        new_post = Post(title, content, user.email)
-        new_post.save_to_mongo()
+        new_post = Texts(user, title, text)
+        new_post.save_to_db()
 
         return render_template("editor.html")
     else:
         return render_template("basiceditor.html")
-
 
 
 @app.route("/testing")

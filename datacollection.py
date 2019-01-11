@@ -48,6 +48,7 @@ def login():
         if stored_user and PH.validate_password(form.loginpassword.data, stored_user['salt'], stored_user['hashed']):
             user = User(form.loginemail.data)
             login_user(user, remember=True)
+            session['username'] = form.loginemail.data
             return redirect(url_for('account'))
         form.loginemail.errors.append("Email or password invalid")
     return render_template("home.html", loginform=form)
@@ -96,6 +97,7 @@ def basiceditor():
 
 
 @app.route("/summary", methods=["POST", "GET"])
+@login_required
 def summary():
     if request.method == "POST":
         if request.form['action'] == 'summary':
@@ -114,7 +116,7 @@ def newtext():
     if request.method == "POST":
         title = request.form['title']
         text = request.form['content']
-        user = session.get('username')
+        user = session['username']
 
         new_post = Texts(user, title, text)
         new_post.save_to_db()

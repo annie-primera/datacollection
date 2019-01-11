@@ -6,6 +6,7 @@ uri = 'mongodb://ahibert:stNW65oh@ds259912.mlab.com:59912/datacollection'
 
 
 class DBHelper:
+
     def __init__(self):
         client = MongoClient(uri)
         self.db = client[DATABASE]
@@ -18,3 +19,7 @@ class DBHelper:
 
     def insert(self, collection, data):
         return self.db[collection].insert(data)
+
+    # This is supposed to be a staticmethod for some reason but YOLO
+    def find_one(self, collection, query):
+        return self.db[collection].find_one(query)

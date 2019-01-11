@@ -3,7 +3,7 @@
 <div class="container">
     <h2>{{ blog_title }}</h2>
     <form class="form-inline my-2 my-lg-0" action="/newtext" method="GET">
-      <button type="submit" class="btn btn-success" name="action" value="summary">New text</button>
+      <button type="submit" class="btn btn-success">New text</button>
     </form>
     {% if texts|length > 0 %}
         {% for text in texts %}

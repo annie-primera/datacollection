@@ -1,14 +1,16 @@
 import datetime
+import uuid
 from dbhelper import DBHelper
 
 Database = DBHelper()
 
 class Texts(object):
-    def __init__(self, user, title, text, date=datetime.datetime.utcnow()):
+    def __init__(self, user, title, text, _id=None, date=datetime.datetime.utcnow()):
         self.user = user
         self.date = date
         self.title = title
         self.text = text
+        self._id = uuid.uuid4().hex if _id is None else _id
 
     def save_to_db(self):
         Database.insert(collection='texts',

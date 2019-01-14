@@ -1,4 +1,5 @@
-from pymongo import MongoClient
+import pymongo
+from bson.objectid import ObjectId
 
 DATABASE = "datacollection"
 
@@ -8,7 +9,7 @@ uri = 'mongodb://ahibert:stNW65oh@ds259912.mlab.com:59912/datacollection'
 class DBHelper:
 
     def __init__(self):
-        client = MongoClient(uri)
+        client = pymongo.MongoClient(uri)
         self.db = client[DATABASE]
 
     def get_user(self, email):
@@ -33,8 +34,8 @@ class DBHelper:
         return texts
 
     def get_text(self, text_id):
-        #return self.db.tables.find_one({"_id": ObjectId(text_id)})
-        pass
+        text = self.db.texts.find_one({"_id": ObjectId(text_id)})
+        return text
 
     def update_text(self, _id, text):
         self.db.texts.update({"_id":  id}, {"$set": {"text": text}})

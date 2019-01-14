@@ -85,10 +85,12 @@ def load_user(user_id):
         return User(user_id)
 
 
-@app.route("/editor")
+@app.route("/editor/<text_id>")
 @login_required
-def editor():
-    return render_template("editor.html")
+def editor(text_id):
+    text_id = DB.get_text(text_id)
+
+    return render_template("editor.html", text=text_id)
 
 
 @app.route("/basiceditor")

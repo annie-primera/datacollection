@@ -7,10 +7,10 @@
 
 <!-- TEXT EDITOR HERE -->
 <div>
-    <h1>This is the text editor. yaay</h1>
+    <h1>{{ text.title }}</h1>
     <form class="form-inline my-2 my-lg-0" action="/summary" method="POST">
       <button type="submit" class="btn btn-success" name="action" value="summary">Summary</button>
-        <textarea id="editor" name="text">Hello, World!</textarea>
+        <textarea id="editor" name="text"> {{ text.text }} </textarea>
       <button type="submit" class="btn btn-success" name="action" value="save">Save</button>
     </form>
 

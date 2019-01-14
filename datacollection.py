@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request, session
-from flask_login import LoginManager, login_required, login_user, logout_user
+from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 from user import User
 from texts import Texts
 from passwordhelper import PasswordHelper
@@ -34,10 +34,11 @@ def account():
     return redirect(url_for("dashboard"))
 
 
-@app.route("/dashboard")
+@app.route("/dashboard", methods=["GET"])
 @login_required
 def dashboard():
-    return render_template("dashboard.html")
+    texts = DB.get_texts(session['username'])
+    return render_template("dashboard.html", texts=texts)
 
 
 @app.route("/login", methods=["POST"])

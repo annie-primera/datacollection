@@ -9,6 +9,7 @@ from dbhelper import DBHelper as DBHelper
 from grammar import Grammar
 from wtf_tinymce import wtf_tinymce
 import ProWritingAidSDK
+import uuid
 
 DB = DBHelper()
 PH = PasswordHelper()
@@ -120,11 +121,14 @@ def newtext():
         title = request.form['title']
         text = request.form['content']
         user = session['username']
+        _id = uuid.uuid4().hex
 
-        new_post = Texts(user, title, text)
+        new_post = Texts(user, title, text, _id)
         new_post.save_to_db()
 
-        return render_template("editor.html")
+        text_summary = Grammar.summary(text)
+
+        return render_template("summary.html", text_summary=text_summary)
     else:
         return render_template("basiceditor.html")
 

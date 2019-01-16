@@ -5,12 +5,12 @@ from dbhelper import DBHelper
 Database = DBHelper()
 
 class Texts(object):
-    def __init__(self, user, title, text, _id=None, date=datetime.datetime.utcnow()):
+    def __init__(self, user, title, text, _id, date=datetime.datetime.utcnow()):
         self.user = user
         self.date = date
         self.title = title
         self.text = text
-        self._id = uuid.uuid4().hex if _id is None else _id
+        self._id = _id
 
     def save_to_db(self):
         Database.insert(collection='texts',
@@ -21,7 +21,8 @@ class Texts(object):
             'user': self.user,
             'text': self.text,
             'title': self.title,
-            'created_date': self.date
+            'created_date': self.date,
+            '_id': self._id
         }
 
     @classmethod

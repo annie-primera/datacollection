@@ -25,6 +25,7 @@ class DBHelper:
     def find_one(self, collection, query):
         return self.db[collection].find_one(query)
 
+    # CRUD for texts
     def add_text(self, _id, number, user):
         self.db.append({"_id": number, "number": number, "user": user})
         return number
@@ -34,7 +35,7 @@ class DBHelper:
         return texts
 
     def get_text(self, text_id):
-        text = self.db.texts.find_one({"_id": ObjectId(text_id)})
+        text = self.db.texts.find_one({"_id": text_id})
         return text
 
     def update_text(self, _id, text):

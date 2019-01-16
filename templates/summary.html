@@ -4,6 +4,9 @@
 
 <input type="button" value="Back" onclick="window.history.back()" />
 
+<input type="button" value="Edit" onclick="location.href='/editor/{{ text_id }}';"/>
+
+
 {{ text_summary|safe }}
 
 {% endblock %}

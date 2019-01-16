@@ -128,7 +128,7 @@ def newtext():
 
         text_summary = Grammar.summary(text)
 
-        return render_template("summary.html", text_summary=text_summary)
+        return render_template("summary.html", text_summary=text_summary, text_id=_id)
     else:
         return render_template("basiceditor.html")
 

@@ -12,6 +12,7 @@
       <button type="submit" class="btn btn-success" name="action" value="summary">Summary</button>
         <textarea id="editor" name="text"> {{ text.text }} </textarea>
       <button type="submit" class="btn btn-success" name="action" value="save">Save</button>
+        <button formaction="{{ url_for('summary' ,text_id='text._id') }}" type="submit" class="btn btn-success">Sumario</button>
     </form>
 
 </div>

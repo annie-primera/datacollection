@@ -100,18 +100,13 @@ def basiceditor():
     return render_template("basiceditor.html")
 
 
-@app.route("/summary", methods=["POST", "GET"])
+@app.route("/summary/<text_id>", methods=["POST"])
 @login_required
-def summary():
-    if request.method == "POST":
-        if request.form['action'] == 'summary':
-            text = request.form["text"]
-            text_summary = Grammar.summary(text)
-            return render_template("summary.html", text_summary=text_summary)
-        elif request.form['action'] == 'save':
-            return render_template("testing.html")
-    else:
-        return render_template("testing.html")
+def summary(text_id):
+    text = request.form["text"]
+    text_summary = Grammar.summary(text)
+
+    return render_template("summary.html", text_summary=text_summary, text_id=text_id)
 
 
 @app.route("/newtext", methods=["GET", "POST"])

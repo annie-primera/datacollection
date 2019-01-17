@@ -40,3 +40,6 @@ class DBHelper:
 
     def update_text(self, _id, text):
         self.db.texts.update({"_id":  id}, {"$set": {"text": text}})
+
+    def delete_text(self, text_id):
+        self.db.texts.remove({"_id": text_id})

@@ -42,6 +42,14 @@ def dashboard():
     return render_template("dashboard.html", texts=texts)
 
 
+@app.route("/deletetext")
+@login_required
+def deletetext():
+    text_id = request.args.get("text_id")
+    DB.delete_text(text_id)
+    return redirect(url_for("dashboard"))
+
+
 @app.route("/login", methods=["POST"])
 def login():
     form = LoginForm(request.form)

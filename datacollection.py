@@ -50,6 +50,15 @@ def deletetext():
     return redirect(url_for("dashboard"))
 
 
+@app.route("/updatetext")
+@login_required
+def updatetext():
+    text_id = request.args.get("text_id")
+    text = request.args.get("text")
+    DB.update_text(text_id, text)
+    return redirect(url_for("dashboard"))
+
+
 @app.route("/login", methods=["POST"])
 def login():
     form = LoginForm(request.form)

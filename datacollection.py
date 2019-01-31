@@ -145,6 +145,11 @@ def newtext():
         return render_template("basiceditor.html")
 
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+
 @app.route("/testing")
 def testing():
     return render_template("testing.html")

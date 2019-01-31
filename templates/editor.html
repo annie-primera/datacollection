@@ -9,7 +9,7 @@
 <div>
     <h1>{{ text.title }}</h1>
     <form class="form-inline my-2 my-lg-0" action="/updatetext">
-      <button formaction="/summary/{{ text._id }}" type="submit" class="btn btn-success">Summary</button>
+      <button formaction="/summary/{{ text._id }}" formmethod="post" type="submit" class="btn btn-success">Summary</button>
         <textarea id="editor" name="text"> {{ text.text }} </textarea>
         <input type="text" name="text_id" value="{{ text._id }}" hidden>
         <input type="submit" class="btn btn-success" value="Save and exit">

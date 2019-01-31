@@ -43,3 +43,6 @@ class DBHelper:
 
     def delete_text(self, text_id):
         self.db.texts.remove({"_id": text_id})
+
+    # Signals database
+

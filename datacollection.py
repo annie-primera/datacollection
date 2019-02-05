@@ -125,6 +125,7 @@ def basiceditor():
 @login_required
 def summary(text_id):
     text = request.form["text"]
+    DB.update_text(text_id, text)
     text_summary = Grammar.summary(text)
     DB.click_summary(user_id=session['username'], date=datetime.datetime.utcnow())
 

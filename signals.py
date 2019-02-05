@@ -1,6 +1,17 @@
-from flask import Flask, current_app
+from flask import current_app
 from blinker import Namespace
+from dbhelper import DBHelper
+import datetime
 
-sample_signal = Namespace()
+DB = DBHelper
 
-def summary_signal(datacollection, message):
+emitting_signal = Namespace()
+
+
+def summary_signal(user_id):
+    DB.click_summary(user_id, date=datetime.datetime.utcnow())
+
+
+summary = emitting_signal.signal('summary_signal')
+
+summary.connect(summary_signal, current_app)

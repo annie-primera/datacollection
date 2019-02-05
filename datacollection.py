@@ -10,6 +10,8 @@ from grammar import Grammar
 from wtf_tinymce import wtf_tinymce
 import ProWritingAidSDK
 import uuid
+from blinker import Namespace
+import datetime
 
 DB = DBHelper()
 PH = PasswordHelper()
@@ -32,30 +34,6 @@ def home():
 @app.route("/account")
 @login_required
 def account():
-    return redirect(url_for("dashboard"))
-
-
-@app.route("/dashboard", methods=["GET"])
-@login_required
-def dashboard():
-    texts = DB.get_texts(session['username'])
-    return render_template("dashboard.html", texts=texts)
-
-
-@app.route("/deletetext")
-@login_required
-def deletetext():
-    text_id = request.args.get("text_id")
-    DB.delete_text(text_id)
-    return redirect(url_for("dashboard"))
-
-
-@app.route("/updatetext")
-@login_required
-def updatetext():
-    text_id = request.args.get("text_id")
-    text = request.args.get("text")
-    DB.update_text(text_id, text)
     return redirect(url_for("dashboard"))
 
 
@@ -103,6 +81,30 @@ def load_user(user_id):
         return User(user_id)
 
 
+@app.route("/dashboard", methods=["GET"])
+@login_required
+def dashboard():
+    texts = DB.get_texts(session['username'])
+    return render_template("dashboard.html", texts=texts)
+
+
+@app.route("/deletetext")
+@login_required
+def deletetext():
+    text_id = request.args.get("text_id")
+    DB.delete_text(text_id)
+    return redirect(url_for("dashboard"))
+
+
+@app.route("/updatetext")
+@login_required
+def updatetext():
+    text_id = request.args.get("text_id")
+    text = request.args.get("text")
+    DB.update_text(text_id, text)
+    return redirect(url_for("dashboard"))
+
+
 @app.route("/editor/<text_id>")
 @login_required
 def editor(text_id):
@@ -122,6 +124,9 @@ def basiceditor():
 def summary(text_id):
     text = request.form["text"]
     text_summary = Grammar.summary(text)
+    DB.click_summary(user_id=session['username'], date=datetime.datetime.utcnow())
+    ###emitting_signal = Namespace()
+    ### request.form['submit_button'] == emitter.send(self, "user_id")
 
     return render_template("summary.html", text_summary=text_summary, text_id=text_id)
 

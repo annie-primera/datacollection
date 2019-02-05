@@ -45,4 +45,6 @@ class DBHelper:
         self.db.texts.remove({"_id": text_id})
 
     # Signals database
+    def click_summary(self, user_id, date):
+        self.db.summary.insert({"user_id": user_id, "date": date})
 

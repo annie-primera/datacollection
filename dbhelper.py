@@ -44,7 +44,15 @@ class DBHelper:
     def delete_text(self, text_id):
         self.db.texts.remove({"_id": text_id})
 
-    # Signals database
+    # Summary database
     def click_summary(self, user_id, date):
         self.db.summary.insert({"user_id": user_id, "date": date})
+
+    # Login database
+    def click_login(self, user_id, date):
+        self.db.login.insert({"user_id": user_id, "date": date})
+
+    # Save database
+    def click_save(self, user_id, date):
+        self.db.save.insert({"user_id": user_id, "date": date})
 

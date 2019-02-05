@@ -46,6 +46,7 @@ def login():
             user = User(form.loginemail.data)
             login_user(user, remember=True)
             session['username'] = form.loginemail.data
+            DB.click_login(user_id=session['username'], date=datetime.datetime.utcnow())
             return redirect(url_for('account'))
         form.loginemail.errors.append("Email or password invalid")
     return render_template("home.html", loginform=form)
@@ -102,6 +103,7 @@ def updatetext():
     text_id = request.args.get("text_id")
     text = request.args.get("text")
     DB.update_text(text_id, text)
+    DB.click_save(user_id=session['username'], date=datetime.datetime.utcnow())
     return redirect(url_for("dashboard"))
 
 
@@ -125,8 +127,6 @@ def summary(text_id):
     text = request.form["text"]
     text_summary = Grammar.summary(text)
     DB.click_summary(user_id=session['username'], date=datetime.datetime.utcnow())
-    ###emitting_signal = Namespace()
-    ### request.form['submit_button'] == emitter.send(self, "user_id")
 
     return render_template("summary.html", text_summary=text_summary, text_id=text_id)
 

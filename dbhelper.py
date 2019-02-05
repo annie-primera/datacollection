@@ -56,3 +56,6 @@ class DBHelper:
     def click_save(self, user_id, date):
         self.db.save.insert({"user_id": user_id, "date": date})
 
+    # Copy of the text
+    def text_version(self, user_id, text, date, status):
+        self.db.backups.insert({"user_id": user_id, "date": date, "text": text, "status": status})

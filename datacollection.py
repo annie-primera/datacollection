@@ -93,6 +93,7 @@ def dashboard():
 @login_required
 def deletetext():
     text_id = request.args.get("text_id")
+    DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="deleted")
     DB.delete_text(text_id)
     return redirect(url_for("dashboard"))
 
@@ -104,6 +105,7 @@ def updatetext():
     text = request.args.get("text")
     DB.update_text(text_id, text)
     DB.click_save(user_id=session['username'], date=datetime.datetime.utcnow())
+    DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="saved")
     return redirect(url_for("dashboard"))
 
 
@@ -128,6 +130,7 @@ def summary(text_id):
     DB.update_text(text_id, text)
     text_summary = Grammar.summary(text)
     DB.click_summary(user_id=session['username'], date=datetime.datetime.utcnow())
+    DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="summary")
 
     return render_template("summary.html", text_summary=text_summary, text_id=text_id)
 
@@ -145,6 +148,7 @@ def newtext():
         new_post.save_to_db()
 
         text_summary = Grammar.summary(text)
+        DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="new")
 
         return render_template("summary.html", text_summary=text_summary, text_id=_id)
     else:

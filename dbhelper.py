@@ -3,7 +3,7 @@ from bson.objectid import ObjectId
 
 DATABASE = "datacollection"
 
-uri = 'mongodb://ahibert:stNW65oh@ds259912.mlab.com:59912/datacollection'
+uri = '....'
 
 
 class DBHelper:

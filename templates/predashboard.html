@@ -3,23 +3,30 @@
 
 {% block content %}
 
-    <div class="d-flex justify-content-center">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card mx-auto text-center" style="width: 18rem;">
-                  <div class="card-body">
-                    <a href="/dashboardmon">Monday workshop</a>
-                  </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card mx-auto text-center" style="width: 18rem;">
-                  <div class="card-body">
-                    <a href="/dashboardfri">Friday workshop</a>
-                  </div>
+    {% if user.control %}
+        <div class="d-flex justify-content-center">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card mx-auto text-center" style="width: 18rem;">
+                      <div class="card-body">
+                        <a href="/dashboardmon">Monday workshop</a>
+                      </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% else %}
+        <div class="d-flex justify-content-center">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card mx-auto text-center" style="width: 18rem;">
+                      <div class="card-body">
+                        <a href="/dashboardfri">Friday workshop</a>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
 {% endblock %}

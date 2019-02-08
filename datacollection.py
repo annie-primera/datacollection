@@ -53,7 +53,8 @@ def login():
 
 @app.route("/predashboard")
 def predashboard():
-    return render_template("predashboard.html")
+    user = DB.get_user(session['username'])
+    return render_template("predashboard.html", user=user)
 
 
 @app.route("/logout", methods=["POST"])
@@ -223,9 +224,9 @@ def newtextcontrol():
         text_summary = Grammar.summary(text)
         DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="new")
 
-        return render_template("summary.html", text_summary=text_summary, text_id=_id)
+        return render_template("summarycontrol.html", text_summary=text_summary, text_id=_id)
     else:
-        return render_template("controleditor.html")
+        return render_template("controlbasiceditor.html")
 
 
 @app.route("/about")

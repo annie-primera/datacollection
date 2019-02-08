@@ -59,3 +59,8 @@ class DBHelper:
     # Copy of the text
     def text_version(self, user_id, text, date, status):
         self.db.backups.insert({"user_id": user_id, "date": date, "text": text, "status": status})
+
+    #Are they part of a control group
+    def is_control(self, email):
+        control = self.db.users.find_one({"email": email})
+        return control

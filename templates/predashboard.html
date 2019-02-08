@@ -3,26 +3,39 @@
 
 {% block content %}
 
+    <div class="container">
+        <h2>Welcome!</h2>
+        <p>Thank you for participating in my resesarch! If you're not sure how this program works, you can access one
+        of our tutorials below.</p>
+        <p>If you have any questions, you can always contact me at <a href="mailto:ana.hibert@ed.ac.uk">ana.hibert@ed.ac.uk.</a></p>
+    </div>
+
     {% if user.control %}
-        <div class="d-flex justify-content-center">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="card mx-auto text-center" style="width: 18rem;">
-                      <div class="card-body">
-                        <a href="/dashboardmon">Monday workshop</a>
-                      </div>
+        <div class="container">
+            <div class="card-group">
+                <div class="card text-center">
+                  <div class="card-body">
+                      <a href="/tutorialcontrol">Watch the tutorial</a>
+                  </div>
+                </div>
+                <div class="card text-center">
+                    <div class="card-body">
+                        <a href="/dashboardmon">Begin writing!</a>
                     </div>
                 </div>
             </div>
         </div>
     {% else %}
-        <div class="d-flex justify-content-center">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="card mx-auto text-center" style="width: 18rem;">
-                      <div class="card-body">
-                        <a href="/dashboardfri">Friday workshop</a>
-                      </div>
+        <div class="container">
+            <div class="card-group">
+                <div class="card text-center">
+                  <div class="card-body">
+                      <a href="/tutorial">Watch the tutorial</a>
+                  </div>
+                </div>
+                <div class="card text-center">
+                    <div class="card-body">
+                        <a href="/dashboardfri">Begin writing!</a>
                     </div>
                 </div>
             </div>

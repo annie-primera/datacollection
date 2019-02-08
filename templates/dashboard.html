@@ -1,20 +1,37 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-    <h2>Welcome or something.</h2>
-    <form class="form-inline my-2 my-lg-0" action="/newtext" method="GET">
-      <button type="submit" class="btn btn-success">New text</button>
-    </form>
+
+    <div class="container">
+        <h2>Your dashboard</h2>
+        <p>Here, you can create a new text, or continue working on previous texts. </p>
+    </div>
+
+    <div class="container mt-3 mb-5">
+        <form class="form-inline my-2 my-lg-0" action="/newtext" method="GET">
+          <button type="submit" class="btn btn-success">New text</button>
+        </form>
+    </div>
+
     {% if texts|length > 0 %}
         {% for text in texts %}
-    <h3><a href="/editor/{{ text._id }}">{{ text.title }}</a></h3>
-    <form class="form-inline my2 my-lg-0" action="/deletetext">
-        <input type="text" name="text_id" value="{{ text._id }}" hidden>
-        <input type="submit" value="Delete" class="btn btn-danger">
-    </form>
+        <div class="container">
+            <div class="row mb-3">
+                <div class="col">
+                    <h3><a href="/editor/{{ text._id }}">{{ text.title }}</a></h3>
+                </div>
+                <div class="col">
+                    <form class="form-inline my2 my-lg-0" action="/deletetext">
+                        <input type="text" name="text_id" value="{{ text._id }}" hidden>
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                    </form>
+                </div>
+            </div>
+        </div>
         {% endfor %}
     {% else %}
-        <h4>There are no assignments yet! Click on "New text" to begin writing.</h4>
+        <div class="container">
+            <h4>There are no assignments yet! Click on "New text" to begin writing.</h4>
+        </div>
     {% endif %}
-</div>
+
 {% endblock %}

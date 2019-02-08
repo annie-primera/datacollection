@@ -105,18 +105,14 @@ def dashboardfri():
 @login_required
 def deletetext():
     text_id = request.args.get("text_id")
-    text = request.form["text"]
-    DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="deleted")
     DB.delete_text(text_id)
-    return redirect(url_for("dashboard"))
+    return redirect(url_for("dashboardfri"))
 
 
 @app.route("/deletetextcontrol")
 @login_required
 def deletetextcontrol():
     text_id = request.args.get("text_id")
-    text = request.form["text"]
-    DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="deleted")
     DB.delete_text(text_id)
     return redirect(url_for("dashboardmon"))
 

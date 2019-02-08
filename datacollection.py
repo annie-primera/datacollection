@@ -11,6 +11,7 @@ from wtf_tinymce import wtf_tinymce
 import ProWritingAidSDK
 import uuid
 import datetime
+from bs4 import BeautifulSoup
 
 DB = DBHelper()
 PH = PasswordHelper()
@@ -166,7 +167,8 @@ def controleditor(text_id):
 def summary(text_id):
     text = request.form["text"]
     DB.update_text(text_id, text)
-    text_summary = Grammar.summary(text)
+    plaintext = BeautifulSoup(text)
+    text_summary = Grammar.summary(plaintext.get_text())
     DB.click_summary(user_id=session['username'], date=datetime.datetime.utcnow())
     DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="summary")
 
@@ -178,7 +180,8 @@ def summary(text_id):
 def summarycontrol(text_id):
     text = request.form["text"]
     DB.update_text(text_id, text)
-    text_summary = Grammar.summary(text)
+    plaintext = BeautifulSoup(text)
+    text_summary = Grammar.summary(plaintext.get_text())
     DB.click_summary(user_id=session['username'], date=datetime.datetime.utcnow())
     DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="summary")
 

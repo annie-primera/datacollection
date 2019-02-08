@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<input type="button" value="Back to edit" onclick="location.href='/controleditor/{{ text_id }}';"/>
+
+
+{{ text_summary|safe }}
+
+{% endblock %}

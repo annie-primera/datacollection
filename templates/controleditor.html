@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+
+<!-- TEXT EDITOR HERE -->
+<div>
+    <h1>{{ text.title }}</h1>
+    <form class="form-inline my-2 my-lg-0" action="/updatetextcontrol">
+      <button formaction="/summary/{{ text._id }}" formmethod="post" type="submit" class="btn btn-success">Summary</button>
+        <textarea id="controleditor" name="text"> {{ text.text }} </textarea>
+        <input type="text" name="text_id" value="{{ text._id }}" hidden>
+        <input type="submit" class="btn btn-success" value="Save and exit">
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request, session
-from flask_login import LoginManager, login_required, login_user, logout_user, current_user
+from flask_login import LoginManager, login_required, login_user, logout_user
 from user import User
 from texts import Texts
 from passwordhelper import PasswordHelper
@@ -10,7 +10,6 @@ from grammar import Grammar
 from wtf_tinymce import wtf_tinymce
 import ProWritingAidSDK
 import uuid
-from blinker import Namespace
 import datetime
 
 DB = DBHelper()
@@ -34,7 +33,7 @@ def home():
 @app.route("/account")
 @login_required
 def account():
-    return redirect(url_for("dashboard"))
+    return redirect(url_for("predashboard"))
 
 
 @app.route("/login", methods=["POST"])
@@ -50,6 +49,11 @@ def login():
             return redirect(url_for('account'))
         form.loginemail.errors.append("Email or password invalid")
     return render_template("home.html", loginform=form)
+
+
+@app.route("/predashboard")
+def predashboard():
+    return render_template("predashboard.html")
 
 
 @app.route("/logout", methods=["POST"])
@@ -82,9 +86,16 @@ def load_user(user_id):
         return User(user_id)
 
 
-@app.route("/dashboard", methods=["GET"])
+@app.route("/dashboardmon", methods=["GET"])
 @login_required
-def dashboard():
+def dashboardmon():
+    texts = DB.get_texts(session['username'])
+    return render_template("dashboardcontrol.html", texts=texts)
+
+
+@app.route("/dashboardfri", methods=["GET"])
+@login_required
+def dashboardfri():
     texts = DB.get_texts(session['username'])
     return render_template("dashboard.html", texts=texts)
 
@@ -93,9 +104,20 @@ def dashboard():
 @login_required
 def deletetext():
     text_id = request.args.get("text_id")
+    text = request.form["text"]
     DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="deleted")
     DB.delete_text(text_id)
     return redirect(url_for("dashboard"))
+
+
+@app.route("/deletetextcontrol")
+@login_required
+def deletetextcontrol():
+    text_id = request.args.get("text_id")
+    text = request.form["text"]
+    DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="deleted")
+    DB.delete_text(text_id)
+    return redirect(url_for("dashboardmon"))
 
 
 @app.route("/updatetext")
@@ -106,7 +128,18 @@ def updatetext():
     DB.update_text(text_id, text)
     DB.click_save(user_id=session['username'], date=datetime.datetime.utcnow())
     DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="saved")
-    return redirect(url_for("dashboard"))
+    return redirect(url_for("dashboardfri"))
+
+
+@app.route("/updatetextcontrol")
+@login_required
+def updatetextcontrol():
+    text_id = request.args.get("text_id")
+    text = request.args.get("text")
+    DB.update_text(text_id, text)
+    DB.click_save(user_id=session['username'], date=datetime.datetime.utcnow())
+    DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="saved")
+    return redirect(url_for("dashboardmon"))
 
 
 @app.route("/editor/<text_id>")
@@ -123,6 +156,14 @@ def basiceditor():
     return render_template("basiceditor.html")
 
 
+@app.route("/controleditor/<text_id>")
+@login_required
+def controleditor(text_id):
+    text_id = DB.get_text(text_id)
+
+    return render_template("controleditor.html", text=text_id)
+
+
 @app.route("/summary/<text_id>", methods=["POST"])
 @login_required
 def summary(text_id):
@@ -133,6 +174,18 @@ def summary(text_id):
     DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="summary")
 
     return render_template("summary.html", text_summary=text_summary, text_id=text_id)
+
+
+@app.route("/summarycontrol/<text_id>", methods=["POST"])
+@login_required
+def summarycontrol(text_id):
+    text = request.form["text"]
+    DB.update_text(text_id, text)
+    text_summary = Grammar.summary(text)
+    DB.click_summary(user_id=session['username'], date=datetime.datetime.utcnow())
+    DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="summary")
+
+    return render_template("summarycontrol.html", text_summary=text_summary, text_id=text_id)
 
 
 @app.route("/newtext", methods=["GET", "POST"])
@@ -155,14 +208,29 @@ def newtext():
         return render_template("basiceditor.html")
 
 
+@app.route("/newtextcontrol", methods=["GET", "POST"])
+@login_required
+def newtextcontrol():
+    if request.method == "POST":
+        title = request.form['title']
+        text = request.form['content']
+        user = session['username']
+        _id = uuid.uuid4().hex
+
+        new_post = Texts(user, title, text, _id)
+        new_post.save_to_db()
+
+        text_summary = Grammar.summary(text)
+        DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="new")
+
+        return render_template("summary.html", text_summary=text_summary, text_id=_id)
+    else:
+        return render_template("controleditor.html")
+
+
 @app.route("/about")
 def about():
     return render_template("about.html")
-
-
-@app.route("/testing")
-def testing():
-    return render_template("testing.html")
 
 
 if __name__ == '__main__':

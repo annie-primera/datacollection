@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/home">Text Editor</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/dashboardmon">Dashboard <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+        <ul class="navbar-nav ml-auto">
+            <li>
+                <form class="form-inline my-2 my-lg-0" action="/logout" method="POST">
+                    <button type="submit" class="btn btn-danger">Log out</button>
+                </form>
+            </li>
+        </ul>
+  </div>
+</nav>
+
+
+    <div class="container mt-5 mb-5">
+        <h2>How to use this grammar editor</h2>
+    </div>
+
+    <div class="container mb-5 mt-5">
+        <button class="btn btn-primary" onclick="goBack()">Go Back</button>
+    </div>
+
+    <div class="container">
+        <div class="card mb-5">
+          <img class="card-img-top" src="static/dashboard1.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Creating a new text</h5>
+            <p class="card-text">Click on the green button called "new text".</p>
+          </div>
+        </div>
+        <div class="card mb-5">
+          <img class="card-img-top" src="static/editor2.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Writing your new text</h5>
+              <p class="card-text">You will be taken to a new screen with a simple editor.</p>
+              <p class="card-text">If you want to save your text so you can work on it later, press the green "Save and exit" button,
+              which will save your text and take you back to the dashboard. </p>
+              <p class="card-text">If you're satisfied with the quality of your text and are
+              ready to submit it to the instructor, press the blue "Submit text" button.</p>
+          </div>
+        </div>
+        <div class="card mb-5">
+          <img class="card-img-top" src="static/dashboard2.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Your dashboard</h5>
+            <p class="card-text">All the texts you have saved will be accessible on your dashboard. You can click on them
+            to review and edit them further, or you can delete texts that you're not satisfied with.</p>
+          </div>
+        </div>
+    </div>
+
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+
+{% endblock %}

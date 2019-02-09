@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/home">Grammar Aid</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+            <li>
+                <form class="form-inline my-2 my-lg-0" action="/logout" method="POST">
+                    <button type="submit" class="btn btn-danger">Log out</button>
+                </form>
+            </li>
+        </ul>
+  </div>
+</nav>
+
+    <div class="container mb-5 mt-5">
+        <h2>How to use this grammar editor</h2>
+    </div>
+
+
+    <div class="container mb-5 mt-5">
+        <button class="btn btn-primary" onclick="goBack()">Go Back</button>
+    </div>
+
+
+    <div class="container">
+        <div class="card mb-5">
+          <img class="card-img-top" src="static/dashboard1.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Creating a new text</h5>
+            <p class="card-text">Click on the green button called "new text".</p>
+          </div>
+        </div>
+        <div class="card mb-5">
+          <img class="card-img-top" src="static/newtext.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Writing your new text</h5>
+            <p class="card-text">You will be taken to a new screen with a very simple editor. You won't receive any feedback
+                here, so you should focus on getting your ideas down.</p>
+              <p class="card-text">When you have finished writing your text, click "save and check grammar" to begin receiving feedback.
+              You will be able to edit your text later on, so this doesn't have to be a final version.</p>
+          </div>
+        </div>
+        <div class="card mb-5">
+          <img class="card-img-top" src="static/summary.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Summary and scores</h5>
+            <p class="card-text">The next screen will show you a summary of the feedback for your texts. Check the overall score
+            you received, as you need a minimum score of 70 before you can submit your assignment. It also gives you some key actions that
+            might help improve your text</p>
+              <p class="card-text">This screen includes a lot of feedback, and some of it might be confusing at first, so focus
+              mostly on the scores and the key actions. If you're curious about the rest of the feedback, follow the "Read more about
+              this report" links for more in-depth explanations</p>
+              <p>Press the "Back to edit" button at the top of the screen to continue working on your text.</p>
+          </div>
+        </div>
+        <div class="card mb-5">
+          <img class="card-img-top" src="static/editor.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Dynamic feedback and editing the text</h5>
+            <p class="card-text">Here, you will receive detailed feedback in order to improve your text. Red lines under a word mean
+            that there's a spelling mistake. Yellow lines are for grammar mistakes or style issues. If you hover over the underlined
+            words, it will give you suggestions. The suggestions also come with an "ignore" button, which you are free to use if you
+            don't agree with the program's suggestions.</p>
+              <p class="card-text">You can use the "Summary" button to go back to the previous screen and see whether your
+              score has improved.</p>
+              <p class="card-text">If you want to save your text so you can work on it later, press the green "Save and exit" button,
+              which will save your text and take you back to the dashboard.</p>
+              <p class="card-text">If you're satisfied with the quality of your text, have achieved a minimum score of 70 and are
+              ready to submit it to the instructor, press the blue "Submit text" button.</p>
+          </div>
+        </div>
+        <div class="card mb-5">
+          <img class="card-img-top" src="static/dashboard2.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Your dashboard</h5>
+            <p class="card-text">All the texts you have saved will be accessible on your dashboard. You can click on them
+            to review and edit them further, or you can delete texts that you're not satisfied with.</p>
+          </div>
+        </div>
+    </div>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+
+{% endblock %}

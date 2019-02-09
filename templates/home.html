@@ -9,7 +9,7 @@
 
 {% block content %}
 
-    <div class="container">
+    <div class="container mt-5">
         <h1>Welcome!</h1>
         <p>Welcome to this grammar checker, powered by <a href="https://prowritingaid.com" target="_blank">ProWritingAid.</a>
             Remember that this grammar checker is part of a PhD research project, and by using this application you are
@@ -19,6 +19,7 @@
             you can contact me directly at <a href="mailto:ana.hibert@ed.ac.uk">ana.hibert@ed.ac.uk.</a>
         </p>
     </div>
+
 
     <div class="container page-form">
         <div class="container">
@@ -43,10 +44,8 @@
             </div>
 
             {{ loginform.submit(value="Sign in", class="btn btn-success")}}
+            <input type="text" name="weekday" value="friday" hidden>
         </form>
-        <div>
-            <p>If you're a new user, <a href="/register">register here</a></p>
-        </div>
 
     </div>
 

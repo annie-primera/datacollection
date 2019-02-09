@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/home">Text Editor</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li>
+                <form class="form-inline my-2 my-lg-0" action="/logout" method="POST">
+                    <button type="submit" class="btn btn-danger">Log out</button>
+                </form>
+            </li>
+        </ul>
+  </div>
+</nav>
+
+
+    <div class="container mt-5">
+        <h2>Your dashboard</h2>
+        <p>Here, you can create a new text, or continue working on previous texts. </p>
+    </div>
+
+    <div class="container mt-3 mb-5">
+        <form class="form-inline my-2 my-lg-0" action="/newtextcontrol" method="GET">
+          <button type="submit" class="btn btn-success">New text</button>
+        </form>
+    </div>
+
+        {% if texts|length > 0 %}
+            {% for text in texts %}
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h3><a href="/controleditor/{{ text._id }}">{{ text.title }}</a></h3>
+                    </div>
+                    <div class="col">
+                        <form class="form-inline my2 my-lg-0" action="/deletetextcontrol">
+                            <input type="text" name="text_id" value="{{ text._id }}" hidden>
+                            <input type="submit" value="Delete" class="btn btn-danger">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="container">
+                <h4>There are no assignments yet! Click on "New text" to begin writing.</h4>
+            </div>
+        {% endif %}
+
+</div>
+{% endblock %}

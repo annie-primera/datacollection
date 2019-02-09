@@ -13,6 +13,7 @@
         <textarea id="editor" name="text"> {{ text.text }} </textarea>
         <input type="text" name="text_id" value="{{ text._id }}" hidden>
         <input type="submit" class="btn btn-success" value="Save and exit">
+        <button formaction="/submit" formmethod="post" type="submit" class="btn btn-primary">Submit text</button>
     </form>
 </div>
 

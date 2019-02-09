@@ -213,24 +213,49 @@ def newtext():
 def newtextcontrol():
     if request.method == "POST":
         title = request.form['title']
-        text = request.form['content']
+        text = request.form['text']
         user = session['username']
         _id = uuid.uuid4().hex
 
         new_post = Texts(user, title, text, _id)
         new_post.save_to_db()
 
-        text_summary = Grammar.summary(text)
-        DB.text_version(user_id=session['username'], date=datetime.datetime.utcnow(), text=text, status="new")
-
-        return render_template("summarycontrol.html", text_summary=text_summary, text_id=_id)
+        return redirect(url_for("dashboardmon"))
     else:
         return render_template("controlbasiceditor.html")
+
+
+@app.route("/submit", methods=["POST"])
+def submit():
+    text = request.form["text"]
+    text_id = request.form["text_id"]
+    DB.update_text(text_id, text)
+    DB.submit_text(user_id=session['username'], text=text, date=datetime.datetime.utcnow())
+    return redirect(url_for("dashboardfri"))
+
+
+@app.route("/submitcontrol", methods=["POST"])
+def submitcontrol():
+    text = request.form["text"]
+    text_id = request.form["text_id"]
+    DB.update_text(text_id, text)
+    DB.submit_text(user_id=session['username'], text=text, date=datetime.datetime.utcnow())
+    return redirect(url_for("dashboardmon"))
 
 
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+
+@app.route("/tutorial")
+def tutorial():
+    return render_template("tutorial.html")
+
+
+@app.route("/tutorialapp")
+def tutorialapp():
+    return render_template("tutorialapp.html")
 
 
 if __name__ == '__main__':

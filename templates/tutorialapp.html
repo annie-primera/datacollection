@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+    <div class="container mt-5 mb-5">
+        <h2>How to use this grammar editor</h2>
+    </div>
+
+
+    <div class="container">
+        <div class="card mb-5">
+          <img class="card-img-top" src="static/dashboard1.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Creating a new text</h5>
+            <p class="card-text">Click on the green button called "new text".</p>
+          </div>
+        </div>
+        <div class="card mb-5">
+          <img class="card-img-top" src="static/editor2.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Writing your new text</h5>
+              <p class="card-text">You will be taken to a new screen with a simple editor.</p>
+              <p class="card-text">If you want to save your text so you can work on it later, press the green "Save and exit" button,
+              which will save your text and take you back to the dashboard. </p>
+              <p class="card-text">If you're satisfied with the quality of your text and are
+              ready to submit it to the instructor, press the blue "Submit text" button.</p>
+          </div>
+        </div>
+        <div class="card mb-5">
+          <img class="card-img-top" src="static/dashboard2.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Your dashboard</h5>
+            <p class="card-text">All the texts you have saved will be accessible on your dashboard. You can click on them
+            to review and edit them further, or you can delete texts that you're not satisfied with.</p>
+          </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -193,7 +193,7 @@ def summarycontrol(text_id):
 def newtext():
     if request.method == "POST":
         title = request.form['title']
-        text = request.form['content']
+        text = request.form['text']
         user = session['username']
         _id = uuid.uuid4().hex
 
